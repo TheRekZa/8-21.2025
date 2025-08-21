@@ -29,4 +29,12 @@ from Products p, Suppliers s
 where p.SupplierID = s.SupplierID
 --จงแสดงข้อมูลหมายเลขใบวั่งซื้อและชื่อบริษัทขนส่งสินค้าของใบสั่งซื้อหมายเลข 10275
 --Cartesian Product
-select CompanyName,OrderID from Orders,Shippers where shi
+select CompanyName,OrderID 
+from Orders,Shippers 
+where Shippers.ShipperID = Orders.ShipVia 
+and OrderID = 10275
+--join Operator
+select CompanyName,OrderID 
+from Orders join Shippers 
+on Shippers.ShipperID = Orders.ShipVia 
+where OrderID = 10275
