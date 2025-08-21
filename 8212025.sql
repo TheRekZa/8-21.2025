@@ -57,3 +57,16 @@ from Products p join [Order Details] od
 on p.ProductID = od.ProductID
 group by p.ProductID,p.ProductName
 order by 1
+--จงแสดงหมายเลขใบสั่งซื้อ,ชื่อบริษัทลูกค้า,สถานที่ส่งของ,และพนักงานผู้ดูแล
+--Cartesian Product
+select o.OrderID เลขใบสั่งซื้อ,c.CompanyName ลูกค้า,e.FirstName พนักงาน,o.ShipAddress ส่งไปที่ 
+from Orders o,Customers c,Employees e 
+where o.CustomerID=c.CustomerID and o.EmployeeID=e.EmployeeID
+--join operetor
+select o.OrderID เลขใบสั่งซื้อ,c.CompanyName ลูกค้า,e.FirstName พนักงาน,o.ShipAddress ส่งไปที่ 
+from Orders o join Customers c on o.CustomerID=c.CustomerID join Employees e on o.EmployeeID=e.EmployeeID
+--ต้องการ รหัสพนักงาน ชื่อพนักงาน จ านวนใบสั่งซื้อที่เกี่ยวข้อง ผลรวมของค่าขนส่งในปี 1998
+select e.EmployeeID,FirstName,COUNT(*) as [จำนวน order],sum(Freight) as [Sum of Freight] 
+from Employees e join Orders o on e.EmployeeID = o.EmployeeID
+where year(OrderDate) = 1998
+group by e.EmployeeID,FirstName
