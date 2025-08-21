@@ -38,3 +38,22 @@ select CompanyName,OrderID
 from Orders join Shippers 
 on Shippers.ShipperID = Orders.ShipVia 
 where OrderID = 10275
+--ต้องการรหัสพนักงาน ชื่อพนักงาน รหัสใบสี่งซื้อที่เกี่ยวข้อง เรียงตามลำดับรหัสพนักงาน
+select e.EmployeeID,FirstName,OrderID 
+from Employees as e join Orders as o on e.EmployeeID = o.EmployeeID
+order by EmployeeID
+--ต้องการรหัสสินค้า เมือง แสดงประเทศของบริษัทผู้จำหน่าย
+select ProductID,ProductName,City,Country 
+from Products p join Suppliers s 
+on p.SupplierID = s.SupplierID
+--ต้องการชื่อบริษัทขนส่ง และจำนวนใบสั่งซื้อที่เกี่ยวข้อง
+select CompanyName,COUNT(*) 
+from Orders o join Suppliers s 
+on o.ShipVia = s.SupplierID
+group by CompanyName
+--ต้องการรหัสสินค้า ชื่อสินค้า และจำนวนทั้งหมดที่ขายได้
+select p.ProductID,p.ProductName,sum(Quantity) as จำนวนที่ขายได้ทั้งหมด
+from Products p join [Order Details] od 
+on p.ProductID = od.ProductID
+group by p.ProductID,p.ProductName
+order by 1
